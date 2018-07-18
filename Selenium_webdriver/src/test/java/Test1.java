@@ -2,16 +2,33 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 public class Test1 
 {
+	
+ @Parameters("browser")
  @Test 
-	public void test()
+	public void test(String value)
 	{
-		
+	   WebDriver driver=null;
+	   
+		if(value.equals("chrome"))
+		{
 		System.setProperty("webdriver.chrome.driver","C:\\edghyowe8\\chromedriver.exe");
-		WebDriver driver=new ChromeDriver();
+		driver=new ChromeDriver();
+	    }
+		else if(value.equals("firefox"))
+		{
+			System.setProperty("webdriver.gecko.driver","C:\\Ref1\\geckodriver.exe");
+			driver=new FirefoxDriver();
+		}
+		else
+		{
+			System.out.println("No Driver found");
+		}
+		
 		driver.get("http://localhost:8080/login");
 		driver.findElement(By.id("j_username")).sendKeys("Mahesh");
 		driver.findElement(By.name("j_password")).sendKeys("Jenkins");
